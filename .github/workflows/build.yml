@@ -86,11 +86,13 @@ jobs:
         distribution: 'temurin'
         java-version: '21'
 
-        - name: Generate keystore
+    - name: Generate keystore
       run: |
         keytool -genkeypair -keystore $RUNNER_TEMP/my.jks -storepass mypass123 -keypass mypass123 -alias mykey -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=MyApp"
+
     - name: Build APK
       run: |
+        cd ${{ github.workspace }}/V2rayNG
         cd ${{ github.workspace }}/V2rayNG
         echo "sdk.dir=${ANDROID_HOME}" > local.properties
         chmod 755 gradlew
